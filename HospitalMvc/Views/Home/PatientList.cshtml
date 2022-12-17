@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Datetime>
+ @foreach (var i in Model) {<h2>Hoşgeldiniz. Sayın @i.Patient.PatientName </h2>}
+<div class="row">
+    <div class="col-6">
+        <h5>
+            Randevu Listeleme
+        </h5>
+        <table>
+            <tr>
+                <th>Poliklinik</th>
+                <th>Doctor İsmi</th>
+                <th>Randevu Günü</th>
+                <th>Randevu Saati</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Doctor.Branch.BranchName</td>
+                    <td>@item.Doctor.DoctorName</td>
+                    <td>@item.Time.Date.ToString("dd/MM/yyyy")</td>
+                    <td>@item.Time.Hour:@item.Time.Minute</td>
+                </tr>
+            }
+        </table>
+    </div>

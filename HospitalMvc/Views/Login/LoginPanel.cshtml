@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "LoginPanel";
+    Layout = "~/Views/Shared/Layout2.cshtml";
+}
+
+<body>
+    <section class="w3l-hotair-form">
+        <h1>Report Login Form</h1>
+        <div class="container">
+            <div class="workinghny-form-grid">
+                <div class="main-hotair">
+                    <div class="content-wthree">
+                        <h2>Log In</h2>
+                        @using (Html.BeginForm("LoginPanel", "Login", FormMethod.Post))
+                        {
+                            <input type="text" class="text" name="TC" placeholder="User Name" required="" autofocus>
+                            <input type="password" class="password" name="Passwd" placeholder="User Password" required="" autofocus>
+                            <button class="btn" type="submit">Log In</button>
+                        }
+
+                            <p class="account">Don't have an account? <a href="#signup">Register</a></p>
+                        </div>
+                    <div class="w3l_form align-self">
+                        <div class="left_grid_info">
+                            <img src="https://static.birgun.net/resim/haber-detay-resim/2022/02/22/hastane-projeleri-rafa-kaldirilmis-983469-5.jpg" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>

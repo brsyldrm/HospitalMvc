@@ -1,0 +1,13 @@
+﻿@using HospitalMvc.Models.ViewModel
+@model PatientAddDateVm
+@using (Html.BeginForm("LoginPanel", "Login", FormMethod.Post))
+{
+    <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+        <option selected>Poliklinik Seçiniz...</option>
+        @foreach(var item in Model)
+                {
+                    <option value="@item.BranchID">@item.BranchName</option>
+                }
+        
+    </select>
+}
