@@ -8,14 +8,13 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    public class BranchManager
+    public class PatientManager
     {
-        Repository<Branch> repobranch = new Repository<Branch>();
 
-        public List<Branch> GetAll()
+        Repository<Patient> repopatient = new Repository<Patient>();
+        public List<Patient> GetPatientByUser(int id)
         {
-            return repobranch.List();
+            return repopatient.List(x => x.User.UserID == id);
         }
-
     }
 }

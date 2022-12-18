@@ -11,6 +11,10 @@ namespace BusinessLayer.Concrete
     public class DatetimeManager
     {
         Repository<Datetime> repodate = new Repository<Datetime>();
+        public List<Datetime> GetAllDatetime()
+        {
+            return repodate.List();
+        }
         public List<Datetime> GetDateByDoctor(int id)
         {
             return repodate.List(x => x.DoctorID == id);

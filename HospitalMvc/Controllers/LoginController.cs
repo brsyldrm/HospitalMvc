@@ -1,9 +1,11 @@
 ﻿
+using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -12,7 +14,6 @@ namespace HospitalMvc.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
         
         [HttpGet]
         public ActionResult LoginPanel()
@@ -44,5 +45,6 @@ namespace HospitalMvc.Controllers
             }
             return View();
         }
+
     }
 }

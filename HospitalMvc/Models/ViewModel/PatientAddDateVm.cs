@@ -11,6 +11,7 @@ namespace HospitalMvc.Models.ViewModel
     {
         public IEnumerable<SelectListItem> Branches { get; set; }
         public IEnumerable<SelectListItem> Doctors{ get; set; }
+        public IEnumerable<Datetime> datetimes { get; set; }
         
 }
 }

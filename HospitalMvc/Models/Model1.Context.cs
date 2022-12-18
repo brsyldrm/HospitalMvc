@@ -13,10 +13,10 @@ namespace HospitalMvc.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class HospitalDbEntities : DbContext
+    public partial class HospitalDbEntities1 : DbContext
     {
-        public HospitalDbEntities()
-            : base("name=HospitalDbEntities")
+        public HospitalDbEntities1()
+            : base("name=HospitalDbEntities1")
         {
         }
     
@@ -25,8 +25,6 @@ namespace HospitalMvc.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Branches> Branches { get; set; }
-        public virtual DbSet<Doctors> Doctors { get; set; }
-
+        public virtual DbSet<Datetimes> Datetimes { get; set; }
     }
 }

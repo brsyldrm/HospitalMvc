@@ -21,7 +21,7 @@ namespace BusinessLayer.Concrete
         }
         public List<Doctor> GetDoctorByUser(int id)
         {
-            return repodoctor.List(x=>x.DoctorID== id);
+            return repodoctor.List(x=>x.User.UserID== id);
         }
     }
 }
