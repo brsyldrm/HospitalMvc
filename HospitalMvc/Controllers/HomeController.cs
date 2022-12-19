@@ -85,7 +85,7 @@ namespace HospitalMvc.Controllers
                             where x.DoctorID == p
                             select new
                             {
-                                date = x.Time.ToString(),
+                                Date = x.Time.ToString()
                             }).ToList();
             return Json(BusyDays, JsonRequestBehavior.AllowGet);
         }
