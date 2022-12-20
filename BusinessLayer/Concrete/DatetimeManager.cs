@@ -2,6 +2,7 @@
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,10 @@ namespace BusinessLayer.Concrete
         {
             Datetime dt = repodate.Find(x=>x.DatetimeID== p);
             return repodate.Delete(dt);
+        }
+        public int DatetimeAddBL(Datetime p)
+        {
+            return repodate.Insert(p);
         }
     }
 }

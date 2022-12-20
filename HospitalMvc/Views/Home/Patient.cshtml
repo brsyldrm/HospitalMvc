@@ -17,7 +17,7 @@
                 dataType: "Json",
                 success: function (data) {
                     $('#DrpDoctor').empty();
-                    $('#DrpDoctor').append("<option value='" +"0" + "'>" + "Doktor Seçiniz..." + "</Option>");
+                    $('#DrpDoctor').append("<option value='" + "0" + "'>" + "Doktor Seçiniz..." + "</Option>");
                     for (var i = 0; i < data.length; i++) {
                         $('#DrpDoctor').append("<option value='" + data[i].Value + "'>" + data[i].Text + "</Option>");
                     }
@@ -26,7 +26,7 @@
         });
     });
 
-    
+
     $(function () {
         var ddList = document.querySelector("#datetime")
         var currentDate = new Date();
@@ -38,80 +38,10 @@
                 type: "POST",
                 dataType: "Json",
                 success: function (data) {
-                    for (var i = 0; i <= data.length; i++){
-                var tmp = data[i].Date;
-                tmp = tmp.split(" ");
-                switch (tmp[0]) {
-                    case "Jan":
-                        tmp[0] = 01;
-                        break;
-                    case "Feb":
-                        tmp[0] = 02;
-                        break;
-                    case "Mar":
-                        tmp[0] = 03;
-                        break;
-                    case "Apr":
-                        tmp[0] = 04;
-                        break;
-                    case "May":
-                        tmp[0] = 05;
-                        break;
-                    case "June":
-                        tmp[0] = 06;
-                        break;
-                    case "July":
-                        tmp[0] = 07;
-                        break;
-                    case "Agu":
-                        tmp[0] = 08;
-                        break;
-                    case "Sep":
-                        tmp[0] = 09;
-                        break;
-                    case "Oct":
-                        tmp[0] = 10;
-                        break;
-                    case "Nov":
-                        tmp[0] = 11;
-                        break;
-                    case "Dec":
-                        tmp[0] = 12;
-                        break;
-                        }
-                        console.log(tmp[3]);
-                        data[i].Date = tmp[1] + "/" + tmp[0] + "/" + tmp[2] + " " + tmp[3];
-                        console.log(data[i].Date);
-            }
+                    for (var i = 0; i <= data.length; i++) {
+                        $('#Time').append("<option value='" + data[i] + "'>" + data[i] + "</Option>");
+                    }
                     
-                    //let dis = "disabled";
-                    //for (var i = 1; i < 16; i++){
-                    //    currentDate.setDate(currentDate.getDate() + 1);
-                    //    for (var j = 9; j < 17; j++){
-                    //        currentDate.setHours(j);
-                    //        for (var x = 0; x < 46; x += 15){
-                    //            currentDate.setMinutes(x);
-                    //            let fulltime = (currentDate.getDate() + "/" + (currentDate.getMonth() + 1) + "/" +
-                    //                currentDate.getFullYear() + "  " + currentDate.getHours() + ":" + currentDate.getMinutes());
-                    //            for (var k = 0; k < data.length; k++) {
-
-                    //                var g = new Date(data[k].Date)
-                    //                if (data[k].Date != fulltime) {
-
-                    //                    if (k == 1) { break; }
-                    //                    else {
-                    //                        console.log(fulltime);
-                    //                        console.log(data[k].Date);
-                    //                        $('#datetime').append("<option value='" + fulltime + "'>" + fulltime + "</Option>");
-                    //                    }
-                    //                }
-                    //                else {
-                    //                    $('#datetime').append("<option value='" + fulltime + "'" + dis + ">" + fulltime + "</Option>"); 
-                //}
-                //                }
-                ////            }
-                ////        }
-                //    }
                 }
             });
         });
@@ -133,14 +63,13 @@
         @using (Html.BeginForm("Patient", "Home", FormMethod.Post))
         {
             @Html.Label("Poliklinik")
-            @Html.DropDownList("DrpBranch", Model.Branches, "Poliklinik seçin", new { @class = "form-control" })
+            @Html.DropDownListFor(x => x.Branches, (List<SelectListItem>)ViewBag.values2, new { @class = "form-control", @name = "DrpBranch", @id = "DrpBranch" })
             <br />
             @Html.Label("Doktor")
-            @Html.DropDownList("DrpDoctor", Model.Doctors, "Doktor seçin", new { @class = "form-control" })
+            @Html.DropDownListFor(x => x.Doctors, (List<SelectListItem>)ViewBag.values, new { @class = "form-control", @name = "DrpDoctor", @id = "DrpDoctor" })
             <br />
             @Html.Label("Randevu Tarih ve Saat")
-            <select id="datetime" name="datetime" class="form-control">
-               
+            <select id="Time" name="Time" class="form-control">
             </select>
             <button class="btn btn-danger" type="submit">Randevu Al</button>
         }

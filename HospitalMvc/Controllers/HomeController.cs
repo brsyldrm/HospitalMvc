@@ -12,11 +12,16 @@ using System.Security.Cryptography;
 using DataAccessLayer.Concrete;
 using Newtonsoft.Json;
 using System.Web.Helpers;
+using Antlr.Runtime.Misc;
+using Newtonsoft.Json.Linq;
+using System.Runtime.CompilerServices;
+using System.Web.Security;
 
 namespace HospitalMvc.Controllers
 {
     public class HomeController : Controller
     {
+        PatientManager pm = new PatientManager();
         DatetimeManager dtm= new DatetimeManager();
         BranchManager bm = new BranchManager();
         DoctorManager dm = new DoctorManager();
@@ -42,20 +47,29 @@ namespace HospitalMvc.Controllers
         [HttpGet]
         public ActionResult Patient()
         {
-            TempData["dis"] = "disabled";
-            PatientAddDateVm vm = new PatientAddDateVm();
-            vm.Branches = new SelectList(db.Branches, "BranchID", "BranchName");
-            vm.Doctors = new SelectList(db.Doctors, "DoctorID", "DoctorName");
-            vm.datetimes = dtm.GetAllDatetime();
+            Context c = new Context();
+            List<SelectListItem> values = (from x in c.Doctors.ToList() select new SelectListItem { Text = x.DoctorName, Value = x.DoctorID.ToString() }).ToList();
+            List<SelectListItem> values2 = (from x in c.Branchs.ToList() select new SelectListItem { Text = x.BranchName, Value = x.BranchID.ToString()}).ToList();
+            ViewBag.values = values;
+            ViewBag.values2 = values2;
             //doctorun id si alınırsa bir şeyler daha yapılabilir.
-            return View(vm);
+            return View();
         }
         [HttpPost]
         public ActionResult Patient(Datetime p)
         {
-            dtm.DatetimeAdd(p);
-            return View();
+            string y = (string)Session["DoctorID"];
+            PatientListVm vm = new PatientListVm((string)Session["UserID"]);
+            Datetime pi = new Datetime()
+            {
+                PatientID = vm.user.PatientID,
+                DoctorID = Convert.ToInt32(y),
+                Time = p.Time
+            };
+            dtm.DatetimeAddBL(pi);
+            return RedirectToAction("Patient");
         }
+            
         public PartialViewResult PatientList()
         {
 
@@ -87,7 +101,33 @@ namespace HospitalMvc.Controllers
                             {
                                 Date = x.Time.ToString()
                             }).ToList();
-            return Json(BusyDays, JsonRequestBehavior.AllowGet);
+            var result = new List<string>();
+            for(int i = 1; i < 16; i++)
+                {
+                for (int j = 9; j < 17; j++)
+                {
+                    for (int x = 0; x < 46; x += 15)
+                    {
+                        var k =Convert.ToDateTime(DateTime.Now.ToString("dd / MM / yyyy")).AddDays(i).AddHours(j).AddMinutes(x);
+                        for (int y =0;y<BusyDays.Count;y++)
+                        {
+                            DateTime hey = Convert.ToDateTime(BusyDays[y].Date);
+                            if (hey != k)
+                            {
+                                if (y == 1) { break; }
+                                else
+                                {
+                                    result.Add(k.ToString());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            string key = p.ToString();
+            FormsAuthentication.SetAuthCookie(Convert.ToString(key), false);
+            Session["DoctorID"] = Convert.ToString(key);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
     }
